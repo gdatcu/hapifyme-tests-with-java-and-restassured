@@ -5,12 +5,13 @@ import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import models.LoginRequest;
 import models.RegisterRequest;
+import static utils.BaseTest.requestSpecification;
 
 public class UserApiClient {
 
     public static Response registerUser(RegisterRequest registerBody) {
         return RestAssured.given()
-                .contentType("application/json")
+                .spec(requestSpecification) // <-- Aici este magia!
                 .body(registerBody)
                 .when()
                 .post("/user/register.php");
@@ -18,7 +19,7 @@ public class UserApiClient {
 
     public static Response loginUser(LoginRequest loginBody) {
         return RestAssured.given()
-                .contentType("application/json")
+                .spec(requestSpecification)
                 .body(loginBody)
                 .when()
                 .post("/user/login.php");

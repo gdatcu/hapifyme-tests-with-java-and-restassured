@@ -2,10 +2,13 @@ package utils;
 
 import api_clients.UserApiClient;
 import io.restassured.RestAssured;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import io.restassured.specification.ResponseSpecification;
 import models.LoginRequest;
 import models.RegisterRequest;
 import org.slf4j.Logger;
@@ -23,17 +26,34 @@ public class BaseTest {
             LoggerFactory.getLogger(BaseTest.class);
 
     public static RequestSpecification requestSpecification;
+    public static ResponseSpecification successResponseSpecification;
+    public static ResponseSpecification unauthorizedResponseSpecification;
 
     @BeforeClass
     public void setup() {
         logger.info("Inițializare configurare globală pentru teste...");
 
         // Această metodă va rula o singură dată, înainte de orice test din clasa care o moștenește
-//        System.out.println("Inițializare configurare de bază...");
-        RestAssured.baseURI = ConfigManager.getProperty("base.url");
+        requestSpecification = new RequestSpecBuilder()
+                .setBaseUri(ConfigManager.getProperty("base.url"))
+                .setContentType("application/json")
+                .addFilter(new RequestLoggingFilter())
+                .addFilter(new ResponseLoggingFilter())
+                .build();
 
-        // Adaugă filtrele de logging
-        RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
+        successResponseSpecification = new ResponseSpecBuilder()
+                .expectStatusCode(200)
+                .build();
+
+        unauthorizedResponseSpecification = new ResponseSpecBuilder()
+                .expectStatusCode(401)
+                .build();
+
+
+
+        // Nu mai setăm RestAssured.baseURI sau RestAssured.filters global
+        // Totul este acum în specificație
+
     }
 
     protected String getAuthToken(String username, String userPassword) {

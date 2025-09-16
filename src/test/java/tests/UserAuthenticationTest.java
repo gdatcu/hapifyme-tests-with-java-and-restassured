@@ -72,8 +72,7 @@ public class UserAuthenticationTest extends BaseTest {
 
         // Assert: Validam/Testam raspunsul in clasa de test!
         response.then()
-                .assertThat()
-                .statusCode(statusCode)
+                .spec(successResponseSpecification) // <-- Folosim șablonul de succes
                 .contentType("application/json")
                 .body("status", equalTo("success"))
                 .body("message", equalTo("Login successful"))
