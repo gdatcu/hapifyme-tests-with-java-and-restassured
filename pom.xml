@@ -76,6 +76,8 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Comentariu de test -->
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
