@@ -34,7 +34,7 @@ public class UserAuthenticationTest extends BaseTest {
 
         // Given
         RestAssured.given()
-                .contentType("application/json") // Specificăm că trimitem JSON
+                .spec(requestSpecification) // Specificăm că trimitem JSON
                 .body(loginRequestBody) // <-- Aici se întâmplă magia!
                 // When
                 .when()

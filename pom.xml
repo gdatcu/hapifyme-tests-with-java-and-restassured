@@ -33,6 +33,12 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>com.aventstack</groupId>
+            <artifactId>extentreports</artifactId>
+            <version>5.0.9</version>
+        </dependency>
+
         <!-- Framework-ul pentru rularea testelor (Test Runner) -->
         <dependency>
             <groupId>org.testng</groupId>
@@ -68,6 +74,12 @@
             <artifactId>logback-classic</artifactId>
             <version>1.4.8</version>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.32</version> <scope>provided</scope>
         </dependency>
 
 </dependencies>

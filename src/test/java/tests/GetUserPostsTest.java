@@ -15,6 +15,7 @@ public class GetUserPostsTest extends BaseTest {
 
         // 2. Facem request-ul către endpoint-ul securizat
         RestAssured.given()
+                .spec(requestSpecification)
                 .header("Authorization", "Bearer " + token) // <-- Aici folosim token-ul!
                 .when()
                 .get("/user/get_user_posts.php")

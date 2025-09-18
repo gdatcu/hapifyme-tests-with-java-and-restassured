@@ -23,7 +23,7 @@ public class UserRegistrationTest extends BaseTest {
 
 
         String username = RestAssured.given()
-                .contentType("application/json")
+                .spec(requestSpecification)
                 .body(registerRequestBody)
                 .when()
                 .post("/user/register.php")
