@@ -1,0 +1,38 @@
+# Numele workflow-ului
+name: API Test Automation CI
+
+# Declanseaza workflow-ul la fiecare push pe branch-ul 'main'
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    # Ruleaza pe o masina virtuala Ubuntu oferita de GitHub
+    runs-on: ubuntu-latest
+
+    steps:
+      # Pasul 1: Descarca codul din repository folosind v4
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      # Pasul 2: Seteaza mediul de Java (versiune 21) pentru a se potrivi cu pom.xml
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      # Pasul 3: Ruleaza testele folosind Maven
+      - name: Run tests with Maven
+        run: mvn clean test
+
+      # Pasul 4 (Optional): Incarca raportul ca artefact folosind v4
+      - name: Upload test report
+        # Ruleaza acest pas doar daca testele reusesc sau esueaza, nu daca job-ul e anulat
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: extent-report
+          path: reports/
+
