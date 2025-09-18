@@ -63,7 +63,7 @@ public class BaseTest {
         loginRequestBody.setPassword(userPassword);
 
        return RestAssured.given()
-                .contentType("application/json")
+               .spec(requestSpecification)
                 .body(loginRequestBody)
                 .when()
                 .post("/user/login.php")
@@ -84,7 +84,7 @@ public class BaseTest {
         String token;
         try {
             token = RestAssured.given()
-                    .contentType("application/json")
+                    .spec(requestSpecification)
                     .body(loginBody)
                     .when().post("/user/login.php")
                     .then().extract().path("token");
@@ -97,6 +97,7 @@ public class BaseTest {
 
         // Pas 2: Trimite request-ul de ștergere autentificat
         RestAssured.given()
+                .spec(requestSpecification)
                 .header("Authorization", "Bearer " + token)
                 .when()
                 .delete("/user/delete_profile.php")
@@ -122,7 +123,7 @@ public class BaseTest {
 
 
         return  RestAssured.given()
-                .contentType("application/json")
+                .spec(requestSpecification)
                 .body(registerRequestBody)
                 .when()
                 .post("/user/register.php")

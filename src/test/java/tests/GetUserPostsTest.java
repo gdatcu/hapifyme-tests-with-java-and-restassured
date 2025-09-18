@@ -32,6 +32,7 @@ public class GetUserPostsTest extends BaseTest {
         // Test negativ: încercăm să accesăm resursa FĂRĂ token
         RestAssured.given()
                 // Nu adăugăm header-ul de autorizare
+                .spec(requestSpecification)
                 .when()
                 .get("/user/get_user_posts.php")
                 .then()
