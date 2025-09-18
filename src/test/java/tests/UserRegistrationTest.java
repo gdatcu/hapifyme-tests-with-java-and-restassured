@@ -33,6 +33,7 @@ public class UserRegistrationTest extends BaseTest {
                 .body("status", equalTo("success"))
                 .body("user_id", notNullValue())
                 .extract().path("token"); // <-- Aici extragem valoarea
+        // New comment test
     }
 
     @AfterMethod
